@@ -6,12 +6,11 @@ import { NextFunction, Request, Response } from "express";
 import { ValidationResult } from "joi";
 
 const getAllTasks = asyncwrapper(async function (req: Request, res: Response) {
-    const tasks = await "getAllTask";//Task.find({});
+    const tasks = await Task.find({});
     res.status(201).json({tasks});
 });
 
 const createTask = asyncwrapper(async function(req: Request, res: Response) {
-    /*
     const result: ValidationResult = JoiTaskSchema.validate(req.body);
     if (result.error !== undefined) {
         
@@ -20,8 +19,6 @@ const createTask = asyncwrapper(async function(req: Request, res: Response) {
         });
     }
     const task = await Task.create(req.body); 
-    */
-    const task = await "createTask";
     res.status(201).json(task);
 });
 
