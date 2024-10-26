@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: Jobs API
+  contact: {}
+  version: '1.0'
+servers:
+  - url: http://localhost:8080/api/v1
+    variables: {}
+components:
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      type: object
+      required:
+        - name
+        - email
+        - password      
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: 中文
+        email: 中文mail@gmail.com
+        password: secret
+    LoginUserRequest:
+      title: LoginUserRequest
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example: 
+        email: 中文mail@gmail.com
+        password: secret
+    CreateJobRequest:
+      title: CreateJobRequest
+      type: object
+      required:
+        - company
+        - position      
+      properties:
+        company:
+          type: string
+        position: 
+          type: string
+      example:
+        company: jowen
+        position: backend software engineer
+    UpdateJobRequest:
+      title: UpdateJobRequest
+      type: object
+      required:
+        - company
+        - position
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: new_jowen
+        position: AI-Developer 
+paths:
+  /auth/register:
+    post:
+      deprecated: false
+      security: []
+      tags:
+      - Auth 
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        required: true
+        description: "The body request for register"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserRequest'
+      responses:
+        '201':
+          description: "User Created"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token: 
+                    type: string
+                  url:
+                    type: string
+              example:
+                token: UserToken
+                url: /auth/register
+  /auth/login:
+    post: 
+      deprecated: false
+      security: []
+      tags:
+        - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserRequest'
+            example:
+              email: 中文@gmail.com
+              password: secret
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  name: 
+                    type: string
+                  token:
+                    type: string
+              example:
+                name: 中山
+                token: yes_sir
+
+                  
+
+
+        
