@@ -3,14 +3,18 @@ import { Schema } from "joi";
 
 const validate = (schema: Schema) => {
     return (req: Request, res: Response, next: NextFunction) => {
-    const { error } = schema.validate(req.body);
-    if (error) {
-        res.status(400).json({
-            msg: error.details[0].message
-        });
-        next(error.details[0].message)
-    }
-    next();
+        const { error } = schema.validate(req.body);
+        if (error) {
+            let out: string = ""
+            error.details.forEach((err) => {
+                out += "\n" + err.message
+            })
+            res.status(400).json({
+                msg: out
+            });
+            return;
+        }
+        next();
 
     }
 }

@@ -4,6 +4,10 @@ class APIError extends Error {
         super(message)
     }
 
+    getStatusCode(): number {
+        return 500;
+    }
+
 }
 
 export default APIError;
